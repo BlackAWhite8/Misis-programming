@@ -1,0 +1,44 @@
+
+
+    // Example program
+    #include <iostream>
+    #include <vector>
+    int main () {
+        std::vector<int> v1;
+        std::vector<int> ans;
+        std::vector<int> v;
+        int n = 0;
+        int k = 0;
+        int c = 0;
+        bool isUnic;
+        std::cin >> n;
+        for (int i = 0; i < n;i++) {
+            std::cin >> k;
+            v1.push_back(k);  
+            ans.push_back(0);
+        }
+        for (int i = 0; i < n;i++) {
+            v.push_back(v1.back());  
+            v1.pop_back();
+        }
+        for (int val : v) {
+            isUnic=true;
+            for (int a : ans) {
+                if (a == val) {
+                    isUnic=false;
+                    break;
+                }    
+            }
+            if (isUnic) {
+                c += 1;
+                ans.push_back(val);    
+            }
+        }
+        std::cout<<c<<'\n';
+        for (int g = ans.size()-1;g>-1;g--) {
+            if (ans[g] != 0) {
+                std::cout<<ans[g]<<' ';
+            }
+        }
+        
+    }
