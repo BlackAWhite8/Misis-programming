@@ -1,0 +1,129 @@
+
+
+        // Example program
+        #include <iostream>
+        #include <string>
+        #include <vector>
+         
+        int main()
+        {
+          int t,a,b,n,counter = 0;
+          int b_base = 0;
+          int a_base = 0;
+          int c_a = 0;
+          int c_b = 0;
+          counter = 0;
+          std::cin>>t;
+          std::string vector[t];
+          std::string s;
+          bool fl = true;
+          s.reserve(2*100000);
+          for (int iTest = 0; iTest < t; iTest++) {
+                std::cin>>a>>b;
+                n = a+b;
+                c_a = 0;
+                c_b = 0;
+                a_base = a;
+                b_base = b;
+                s.resize(n);
+                std::cin>>s;
+                if (a % 2 != 0 && b % 2 != 0) {
+                    vector[counter] = "-1";
+                    counter += 1;
+                    continue;
+                }
+                fl = true;
+                for (int iChar = 0; iChar < n/2;iChar++) {
+                    if (s[iChar] == '1') {
+                        if (s[n-iChar-1] == '0') {
+                            vector[counter] = "-1";
+                            counter += 1;
+                            fl = false;
+                            break;
+                        } 
+                        else if(s[n-iChar-1] == '?') {
+                            s[n-iChar-1] = '1';
+                            b -= 2;
+                        }
+                        else {
+                            b -= 2;    
+                        }
+                    }
+                    else if (s[iChar] == '0') {
+                        if (s[n-iChar-1] == '1') {
+                            vector[counter] = "-1";
+                            counter += 1;
+                            fl = false;
+                            break;
+                        }    
+                        else if(s[n-iChar-1] == '?') {
+                            a -= 2;
+                            s[n-iChar-1] = '0';    
+                        }
+                        else {
+                            a-=2;    
+                        }
+                    }   
+                    else if (s[iChar] == '?') {
+                        if (s[n-iChar-1] == '1') {
+                            s[iChar] = '1';
+                            b -= 2;
+                        }
+                        else if (s[n-iChar-1] == '0') {
+                            s[iChar] = '0';
+                            a -= 2;
+                        }
+                    }
+                }
+                if (!fl) {
+                    continue;
+                }
+                for (int k = 0; k < n/2;k++) {
+                    if(s[k] =='?') {
+                        if (a>b) {
+                            s[k] = '0';
+                            s[n-k-1]='0';
+                            a -= 2;
+                        }
+                        else {
+                            s[k] = '1';
+                            s[n-k-1] = '1';
+                            b -= 2;
+                        }
+                    }    
+                }
+                
+                if (n % 2 != 0 && s[n/2] == '?') {
+                    if (a > b) {
+                        s[n/2] = '0';
+                    }    
+                    else {
+                        s[n/2] = '1';    
+                    }
+                }
+                for (int i = 0; i < n; i++) {
+                    if(s[i] == '0') {
+                        c_a += 1;   
+                    }
+                    else {
+                        c_b += 1;    
+                    }
+                }
+                if (c_a == a_base && c_b==b_base) {
+                    vector[counter] = s;
+                    counter += 1;
+                }
+                else {
+                    vector[counter] = "-1";
+                    counter += 1;   
+                }
+            }
+            for (int j = 0; j < t; j++) {
+                if (vector[j] == "-1") {
+                    std::cout<<-1<<std::endl;    
+                } 
+                else {
+                    std::cout<<vector[j]<<std::endl;    
+                }
+            }
+        }
