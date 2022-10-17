@@ -1,0 +1,41 @@
+    #include <iostream>
+    #include <string>
+     
+    int main()
+    {
+      int k,d,m,n,c = 0;
+      std::cin >> k;
+      int num, ost = 0;
+      int input_arr[k];
+      for (int i = 0; i < k;i++) {
+          std::cin>>n;
+          input_arr[i]=n;
+        }
+      for (int i = 0; i < k; i++) {
+          num = input_arr[i];
+          d = 10;
+          int arr[5] = {0,0,0,0,0};
+          c = 0;
+          for (int j = 0; j < 5; j++) {
+              ost = (num % d);
+              num -= ost;
+              if (ost != 0) {
+                  arr[c] = ost;
+                  c += 1;
+                }
+              if (num == 0) {
+                  break;
+                }
+              d *= 10;
+            }
+            m = 0;
+            std::cout<<c<<'\n';
+            while(m < c) {
+                
+               std::cout<<arr[m] << ' ';
+               m+=1;
+            }
+            std::cout<<'\n';
+            
+        }
+    }
