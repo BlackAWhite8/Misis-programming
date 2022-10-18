@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string>
+#include <vector>
+int main()
+{
+    int t, n, pos, c = 0;
+    std::string s, sub_s = "";
+    std::cin >> t;
+    std::vector<std::string> v;
+    bool fl;
+    c = 0;
+    v.reserve(t);
+    for (int i = 0; i < t; i++) {
+        v.push_back("1");
+    }
+    for (int iSet = 0; iSet < t; iSet++) {
+        std::cin >> n;
+        std::cin >> s;
+        pos = 0;
+        if (n == 1 && s != "W") {
+            v[c] = "NO";
+            c += 1;
+            continue;
+        }
+        else if (n==1 && s == "W") {
+            v[c] = "YES";
+            c += 1;
+            continue;
+        }
+        sub_s = "";
+        while (pos < s.length()) {
+            if (s[pos] == 'W') {
+                if (sub_s == "") {
+                    pos += 1;
+                }
+                while (s[pos] != 'W' && pos < s.length()) {
+                    sub_s += s[pos];
+                    pos += 1;
+                }
+                fl = false;
+                for (int iSubPos = 1; iSubPos < sub_s.length(); iSubPos++) {
+                    if (sub_s[iSubPos] != sub_s[0]) {
+                        fl = true;
+                        break;
+                    }
+                }
+                if (!fl && sub_s != "") {
+                    v[c] = "NO";
+                    break;
+                }
+                sub_s = "";
+            }
+            else {
+                sub_s += s[pos];
+                pos += 1;
+            }
+        }
+        if (sub_s.length() != 0) {
+            fl = false;
+            for (int iSubPos = 1; iSubPos < sub_s.length(); iSubPos++) {
+                if (sub_s[iSubPos] != sub_s[0]) {
+                    fl = true;
+                    break;
+                }
+            }
+            if (!fl) {
+                v[c] = "NO";
+            }
+        }
+        if (v[c] != "NO") {
+            v[c] = "YES";
+        }
+        c += 1;
+    }
+    for (int i = 0; i < t; i++) {
+        std::cout << v[i] << std::endl;
+    }
+}
