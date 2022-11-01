@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+ 
+int main() {
+    int n = 0, k = 0;
+    std::cin>>n;
+    std::cin>>k;
+    std::vector<int> v;
+    for (int i = 0; i < n; i++) {
+        int x;
+        std::cin >> x;
+        v.push_back(x);
+    }
+    int cnt = 0;
+    int lIndex = 0; 
+    int nIndex = 1;
+    if (k+1 > v.size()) {
+        int mx = *std::max_element(std::begin(v), std::end(v));
+        std::cout << mx;
+        return 0;
+    }
+    while (cnt < k) {
+        if (v[lIndex] > v[nIndex]) {
+            cnt++;
+            nIndex++;
+        } else {
+            cnt = 0;
+            v.push_back(a[lIndex]);
+            lIndex++;
+            nIndex = lIndex + 1;
+        }
+    }
+    std::cout << v[lIndex];
+}
